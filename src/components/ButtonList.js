@@ -12,12 +12,12 @@ const list = [
   "JavaScript",
   "React",
   "Kapil Sharma",
+  "Wion",
   "Gaming",
-  "TMKOC",
-  "JavaScript",
-  "React",
-  "Kapil Sharma",
-  "Gaming",
+  "Live",
+  "Sports",
+  "Comedy",
+  "Ranveer Allahbadia",
 ];
 const ButtonList = () => {
   const containerRef = useRef(null);
@@ -34,10 +34,10 @@ const ButtonList = () => {
     });
   };
   return (
-    <div className="relative flex items-center w-full">
+    <div className="relative flex items-center w-4/5">
       <button
         onClick={scrollLeft}
-        className="absolute left-0 z-10 p-2  rounded-full"
+        className="absolute left-0 z-10 p-2 rounded-full"
       >
         &lt;
       </button>
