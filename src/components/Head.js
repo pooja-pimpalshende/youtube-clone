@@ -1,9 +1,30 @@
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
+import { useEffect, useState } from "react";
+import { YOUTUBE_SEARCH_API } from "../utils/constants";
 
 const Head = () => {
   const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestion] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(true);
 
+  useEffect(() => {
+    const timer = setTimeout(() => getSearchSuggestions(), 200);
+
+    //debouncing
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchQuery]);
+
+  const getSearchSuggestions = async () => {
+    console.log(searchQuery);
+    const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+    const json = await data.json();
+    // console.log(json[1]);
+    setSuggestion(json[1]);
+  };
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
   };
@@ -24,13 +45,30 @@ const Head = () => {
         />
       </div>
       <div className="col-span-10 px-10">
-        <input
-          className="w-1/2 border border-gray-400 p-2 rounded-l-full"
-          type="text"
-        />
-        <button className="border border-gray-400 bg-slate-100 p-2 w-20 rounded-r-full">
-          🔍
-        </button>
+        <div>
+          <input
+            className="w-1/2 border border-gray-400 p-2 rounded-l-full"
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            // onFocus={() => setShowSuggestions(true)}
+            // onBlur={() => setShowSuggestions(false)}
+          />
+          <button className="border border-gray-400 bg-slate-100 p-2 w-20 rounded-r-full">
+            🔍
+          </button>
+        </div>
+        {showSuggestions && (
+          <div className=" absolute bg-white w-[30rem] rounded-lg shadow-lg border border-gray-50">
+            <ul>
+              {suggestions.map((s) => (
+                <li key={s} className="py-2 px-3 shadow-sm hover:bg-green-100">
+                  🔍 {s}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
       <div className="col-span-1">
         <img className="h-8" alt="user" src="/user.png" />

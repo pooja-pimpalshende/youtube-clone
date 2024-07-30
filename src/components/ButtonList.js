@@ -34,11 +34,8 @@ const ButtonList = () => {
     });
   };
   return (
-    <div className="relative flex items-center w-4/5">
-      <button
-        onClick={scrollLeft}
-        className="absolute left-0 z-10 p-2 rounded-full"
-      >
+    <div className=" flex items-center w-4/5">
+      <button onClick={scrollLeft} className=" left-0 p-2 rounded-full">
         &lt;
       </button>
       <div
@@ -54,10 +51,7 @@ const ButtonList = () => {
           <Button key={index} name={item} />
         ))}
       </div>
-      <button
-        onClick={scrollRight}
-        className=" absolute right-0 z-10 p-2 rounded-full"
-      >
+      <button onClick={scrollRight} className="right-0 p-2 rounded-full">
         &gt;
       </button>
     </div>
